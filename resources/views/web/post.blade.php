@@ -4,9 +4,8 @@
 
 <div class="container">
 	<div class="col-12">
-		<h1>Lista de articulos</h1>
-		
-		@foreach($posts as $post)
+		<h1>{{ $post->name }}</h1>
+		<p>Categoria: <a href="{{ route('category', $post->category->slug)}}">{{ $post->category->name }}</a></p>
 			<div class="card">
 				
 				@if($post->file)
@@ -14,14 +13,19 @@
 				@endif				
 				
 				<div class="card-body">
-					<h3 class="card-title"> {{ $post->name }} </h3>
 					<p>{{ $post->excerpt }}</p>
-					<a href="{{ route('post', $post->slug) }}" class="pull-right">Leer mas</a>
+					<hr>
+					{!! $post->body !!}
+					<hr>
+					Etiquetas:
+					@foreach($post->tags as $tag)
+						<a href="{{ route('tag', $tag->slug) }}">
+							{{ $tag->name }}
+						</a>
+					@endforeach
 				</div>
 
 			</div>
-		@endforeach
-		{{ $posts->render() }}
 
 	</div>
 
